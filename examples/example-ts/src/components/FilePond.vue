@@ -1,15 +1,13 @@
 <template>
-  <div id="component">
-    <file-pond
-      name="test"
-      ref="pond"
-      label-idle="Drop files here..."
-      allow-multiple="true"
-      v-bind:server="myServer"
-      v-bind:files="myFiles"
-      v-on:init="handleFilePondInit"
-    />
-  </div>
+  <file-pond
+    name="test"
+    ref="pond"
+    label-idle="Drop files here..."
+    allow-multiple="true"
+    v-bind:server="myServer"
+    v-bind:files="myFiles"
+    v-on:init="handleFilePondInit"
+  />
 </template>
 
 <script lang="ts">
@@ -17,6 +15,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 // Import Vue FilePond
 import vueFilePond, { VueFilePondComponent } from "vue-filepond";
+import { FilePondOptionProps } from "filepond";
 
 // Import FilePond styles
 import "filepond/dist/filepond.min.css";
@@ -29,18 +28,20 @@ import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orien
 // @ts-ignore No types yet
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
-import { FilePondOptionProps } from "filepond";
 
-const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginImagePreview);
-
-
+const FilePond = vueFilePond(
+  FilePondPluginImagePreview,
+  FilePondPluginImageExifOrientation
+);
 
 @Component({ components: { FilePond } })
 export default class HelloWorld extends Vue {
+  //Strongly type the $ref
   $refs!: {
-    filepond: VueFilePondComponent;
+    pond: VueFilePondComponent;
   };
-  //If you want to strongly type your options you can access the prop models like this
+
+  //If you want to separate & strongly type your options you can access the prop models like this
 
   myServer: FilePondOptionProps["server"] = {
     process: (fieldName, file, metadata, load) => {
@@ -59,7 +60,7 @@ export default class HelloWorld extends Vue {
 
   myFiles: FilePondOptionProps["files"] = [
     {
-      source: "photo.jpeg",
+      source: './photo.jpeg',
       options: {
         type: "local"
       }
@@ -70,6 +71,8 @@ export default class HelloWorld extends Vue {
     console.log("FilePond has initialized");
   }
 
-  doSomethingWithFilepond() {}
+  doSomethingWithFilepondRef() {
+    this.$refs.pond.addFiles(["photo.jpeg"]);
+  }
 }
 </script>

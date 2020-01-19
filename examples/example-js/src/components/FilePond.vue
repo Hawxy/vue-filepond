@@ -1,7 +1,5 @@
 <template>
-  <div id="component">
-
-    <file-pond
+  <file-pond
         name="test"
         ref="pond"
         label-idle="Drop files here..."
@@ -9,8 +7,6 @@
         v-bind:server="myServer"
         v-bind:files="myFiles"
         v-on:init="handleFilePondInit"/>
-
-  </div>
 </template>
 
 <script>
@@ -34,7 +30,6 @@ const FilePond = vueFilePond(
 );
 
 export default {
-    name: 'app',
     data: function() {
         return {
           // fake server to simulate loading a 'local' server file and processing a file
@@ -51,7 +46,7 @@ export default {
             }
           },
           myFiles: [{
-            source: 'photo.jpeg',
+            source: './photo.jpeg',
             options: {
               type: 'local'
             }

@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <HelloWorld/>
+    <FilePond/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FilePond from './components/FilePond.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    FilePond
   }
 }
 </script>
@@ -20,6 +20,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding:20px;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
